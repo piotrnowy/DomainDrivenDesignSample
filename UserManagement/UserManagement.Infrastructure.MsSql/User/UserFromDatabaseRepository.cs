@@ -6,9 +6,9 @@ namespace UserManagement.Infrastructure.MsSql.User
 {
     public class UserFromDatabaseRepository : IUserFromDatabaseRepository
     {
-        public Task<Domain.User.User> GetById(Guid userId)
+        public Task<UserDto> GetById(Guid userId)
         {
-            return Task.FromResult(Domain.User.User.Reconstruct(userId, "John", "Doe", "someEmial@email.com"));
+            return Task.FromResult(new UserDto(userId, "John", "Doe"));
         }
 
         public Task<SearchUserResponseDto> GetUsersBySearchPhrase(string searchPhrase)
@@ -20,10 +20,9 @@ namespace UserManagement.Infrastructure.MsSql.User
             return Task.FromResult(new SearchUserResponseDto(mappedUsers));
         }
 
-        public Task UpdateUser(Domain.User.User user)
+        public Task UpdateUser(UserDto user)
         {
             // save to DB
-
             return Task.CompletedTask;
         }
     }

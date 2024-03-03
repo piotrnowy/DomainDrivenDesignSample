@@ -22,8 +22,9 @@ namespace UserManagement.AntiCorruption.User
             var users = new List<UserDto>();
             foreach (var user in usersFromDatabase.Users)
             {
-                var userEmail = await _userFromOrderCloud.GetUsersEmailByUserId(user.Id);
-                users.Add(new UserDto(user.Id, user.FirstName, user.LastName, userEmail.Email));
+                var userEmail = await _userFromOrderCloud.GetUsersEmailByUserId(user.Id);                
+                var domainUser = Domain.User.User.Reconstruct(user.Id, user.FirstName, user.LastName, userEmail.Email);
+                users.Add(UserDto.FromDomain(domainUser));
             }
 
             return users;
@@ -31,10 +32,12 @@ namespace UserManagement.AntiCorruption.User
 
         public async Task UpdateEmail(Guid userId, UpdateEmailDto email)
         {
+            var userEmail = await _userFromOrderCloud.GetUsersEmailByUserId(userId);
             var user = await _userFromDatabaseRepository.GetById(userId);
-            user.UpdateEmail(email);
+            var domainUser = Domain.User.User.Reconstruct(user.Id, user.FirstName, user.LastName, userEmail.Email);
+            domainUser.UpdateEmail(email);
 
-            await _userFromDatabaseRepository.UpdateUser(user);
+            await _userFromOrderCloud.UpdateUser(domainUser);
         }
     }
 }

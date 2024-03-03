@@ -5,7 +5,7 @@ namespace UserManagement.AntiCorruption.User
     public interface IUserFromDatabaseRepository
     {
         Task<SearchUserResponseDto> GetUsersBySearchPhrase(string searchPhrase);
-        Task<Domain.User.User> GetById(Guid userId);
-        Task UpdateUser(Domain.User.User user);
+        Task<UserDto> GetById(Guid userId);
+        Task UpdateUser(UserDto user);
     }
 }

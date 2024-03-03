@@ -1,0 +1,40 @@
+@startuml UserManagementArchitecture
+
+!define RECTANGLE class
+
+skinparam rectangle {
+    BackgroundColor Wheat
+    BackgroundColor LightSteelBlue
+    BackgroundColor LightGreen
+    BackgroundColor Gold
+    BackgroundColor LightCoral
+}
+
+' Define components
+rectangle "Domain Layer" as DomainLayer <<Domain>> #Wheat
+rectangle "Infrastructure Layer" as InfrastructureLayer <<Infrastructure>> #LightSteelBlue
+rectangle "Anti Corruption Layer" as AntiCorruptionLayer <<AntiCorruption>> #LightGreen
+rectangle "Application Layer" as ApplicationLayer <<Application>> #Gold
+rectangle "REST API Layer" as RESTAPILayer <<RESTAPI>> #LightCoral
+
+' Define additional components if necessary
+' e.g., Handlers within Application Layer
+rectangle "Create User Handler" as CreateUserHandler <<Handler>> #Gold
+rectangle "Update User Handler" as UpdateUserHandler <<Handler>> #Gold
+
+' Define interactions
+RESTAPILayer -down-> ApplicationLayer : calls
+ApplicationLayer -down-> AntiCorruptionLayer : calls
+AntiCorruptionLayer -down-> InfrastructureLayer : calls
+
+' Optionally, show handler interactions
+ApplicationLayer -down-> CreateUserHandler : includes
+ApplicationLayer -down-> UpdateUserHandler : includes
+
+InfrastructureLayer .. DomainLayer : uses
+AntiCorruptionLayer .. DomainLayer : uses
+
+' position domain layer at the top
+DomainLayer -[hidden]- ApplicationLayer
+
+@enduml

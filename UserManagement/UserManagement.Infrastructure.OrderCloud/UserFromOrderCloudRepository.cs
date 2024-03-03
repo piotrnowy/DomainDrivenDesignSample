@@ -11,5 +11,11 @@ namespace UserManagement.Infrastructure.OrderCloud
             var userWithEmail = new UserWithEmailResponse { Id = userId, Email = "test@email.com" };
             return Task.FromResult(new UserEmailDto(userWithEmail.Id, userWithEmail.Email));
         }
+
+        public Task UpdateUser(Domain.User.User user)
+        {
+            // save to OrderCloud
+            return Task.CompletedTask;
+        }
     }
 }
