@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>6c787afe-f52d-46a0-b34f-9b2cc54efb82</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserManagement.AntiCorruption\UserManagement.AntiCorruption.csproj" />
+    <ProjectReference Include="..\UserManagement.Application.Handlers\UserManagement.Application.Handlers.csproj" />
+    <ProjectReference Include="..\UserManagement.Infrastructure.MsSql\UserManagement.Infrastructure.MsSql.csproj" />
+    <ProjectReference Include="..\UserManagement.Infrastructure.OrderCloud\UserManagement.Infrastructure.OrderCloud.csproj" />
+  </ItemGroup>
+
+</Project>
